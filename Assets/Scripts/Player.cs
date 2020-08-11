@@ -1,10 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Security.Cryptography;
-using System.Threading;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -23,20 +18,31 @@ public class Player : MonoBehaviour
     
     [SerializeField]
     private bool _isTripleShotActive = false;
+
     [SerializeField]
     private bool _shieldActive = false;
 
     [SerializeField]
     private GameObject _shieldVisualizer;
 
+    [SerializeField]
+    private int _score;
+
+    private UIManager _uiManager;
+
     void Start()
     {
-        _shieldVisualizer.SetActive(false);
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         if (_spawnManager == null)
         {
             Debug.LogError("Spawn Manager is null");
+        }
+
+        if (_uiManager == null)
+        {
+            Debug.LogError("UI Manager is null");
         }
     }
 
@@ -97,6 +103,7 @@ public class Player : MonoBehaviour
         else
         {
             _lives--;
+            _uiManager.UpdateLives(_lives);
             if (_lives < 1)
             {
                 _spawnManager.OnPlayerDeath();
@@ -134,4 +141,15 @@ public class Player : MonoBehaviour
         _shieldActive = true;
         _shieldVisualizer.SetActive(true);
     }
+
+    //method to add 10 to score
+    //communicate with UI
+
+    public void AddScore(int points)
+    {
+        _score += points;
+        _uiManager.UpdateScore(_score);
+    }
+
+
 }
