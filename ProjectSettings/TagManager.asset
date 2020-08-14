@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Laser
   - Triple Shot Powerup
+  - Enemy Laser
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Post Processing
   - 
   - 
   - 
@@ -46,4 +47,7 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 356150793
+    locked: 0
+  - name: Top
+    uniqueID: 178225455
     locked: 0

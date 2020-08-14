@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Powerup : MonoBehaviour
 {
@@ -12,8 +10,9 @@ public class Powerup : MonoBehaviour
      * 2=shield*/
     [SerializeField]
     private int _powerupID;
+    [SerializeField]
+    private AudioClip _powerupClip;
 
-    // Update is called once per frame
     void Update()
     {
         CalculateMovement();
@@ -38,16 +37,20 @@ public class Powerup : MonoBehaviour
             {
                 switch(this._powerupID)
                 {
+                    
                     case 0:
                         player.TrishotActive();
+                        AudioSource.PlayClipAtPoint(_powerupClip, transform.position);
                         Destroy(this.gameObject);
                         break;
                     case 1:
                         player.SpeedBoostActive();
+                        AudioSource.PlayClipAtPoint(_powerupClip, transform.position);
                         Destroy(this.gameObject);
                         break;
                     case 2:
                         player.ShieldBoostActive();
+                        AudioSource.PlayClipAtPoint(_powerupClip, transform.position);
                         Destroy(this.gameObject);
                         break;
                 }
