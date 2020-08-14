@@ -15,20 +15,26 @@ public class Player : MonoBehaviour
     private int _lives = 3;
     private float _canFire = -1f;
     private SpawnManager _spawnManager;
-    
     [SerializeField]
     private bool _isTripleShotActive = false;
-
     [SerializeField]
     private bool _shieldActive = false;
-
     [SerializeField]
     private GameObject _shieldVisualizer;
-
     [SerializeField]
     private int _score;
-
     private UIManager _uiManager;
+    [SerializeField]
+    private GameObject _rightEngineDamage;
+    [SerializeField]
+    private GameObject _leftEngineDamage;
+
+    [SerializeField]
+    private AudioClip _laserClip;
+    [SerializeField]
+    private AudioClip _explosionClip;
+
+//variable to store audio clip
 
     void Start()
     {
@@ -69,6 +75,8 @@ public class Player : MonoBehaviour
             _canFire = Time.time + _fireRate;
             Instantiate(_laserPrefab, new Vector3(transform.position.x, transform.position.y + 1.05f, 0), Quaternion.identity);
         }
+        AudioSource.PlayClipAtPoint(_laserClip, transform.position);
+        //play laser shot clip
     }
 
     void CalculateMovement()
@@ -103,10 +111,19 @@ public class Player : MonoBehaviour
         else
         {
             _lives--;
+            if (_lives == 2){
+                _rightEngineDamage.SetActive(true);
+            }
+            else
+            if (_lives == 1){
+                _leftEngineDamage.SetActive(true);
+            }
+            
             _uiManager.UpdateLives(_lives);
             if (_lives < 1)
             {
                 _spawnManager.OnPlayerDeath();
+                AudioSource.PlayClipAtPoint(_explosionClip, transform.position);
                 Destroy(this.gameObject);
             }
         }
