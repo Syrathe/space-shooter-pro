@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("Animator is NULL");
         }
-        StartCoroutine(EnemyShoot());
+        StartCoroutine("EnemyShoot");
     }
 
     void Update()
@@ -62,6 +62,7 @@ public class Enemy : MonoBehaviour
                 _speed = 0;
                 AudioSource.PlayClipAtPoint(_explosionClip, transform.position);
                 Destroy(GetComponent<Collider2D>());
+                StopCoroutine("EnemyShoot");
                 Destroy(this.gameObject, 2.8f);
                 
             }
@@ -76,6 +77,7 @@ public class Enemy : MonoBehaviour
             _speed = 0;
             AudioSource.PlayClipAtPoint(_explosionClip, transform.position);
             Destroy(GetComponent<Collider2D>());
+            StopCoroutine("EnemyShoot");
             Destroy(this.gameObject, 2.8f);
         }
     }
