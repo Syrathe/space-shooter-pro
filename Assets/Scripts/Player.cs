@@ -34,6 +34,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private AudioClip _explosionClip;
 
+    [SerializeField]
+    private bool _thrusters = false;
+
 //variable to store audio clip
 
     void Start()
@@ -57,9 +60,14 @@ public class Player : MonoBehaviour
         CalculateMovement();
 
         //upon hitting SPACE key, spawn game object
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
-        {
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire){
             Shoot();
+        }
+        if (Input.GetKeyDown(KeyCode.LeftShift)){
+            _speed += 3f;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift)){
+            _speed -= 3f;
         }
     }
 
