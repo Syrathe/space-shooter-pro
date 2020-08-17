@@ -18,9 +18,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private bool _isTripleShotActive = false;
     [SerializeField]
-    private bool _shieldActive = false;
+    private int _shieldActive = 0;
     [SerializeField]
-    private GameObject _shieldVisualizer;
+    GameObject[] _shieldVisualizer = new GameObject[3];
+
     [SerializeField]
     private int _score;
     private UIManager _uiManager;
@@ -110,10 +111,11 @@ public class Player : MonoBehaviour
 
     public void Damage ()
     {
-        if (_shieldActive == true)
+        if (_shieldActive > 0)
         {
-            _shieldVisualizer.SetActive(false);
-            _shieldActive = false;
+            //_shieldVisualizer.SetActive(false);
+            _shieldActive -= 1;
+            CheckShield();
             return;
         }
         else
@@ -135,6 +137,7 @@ public class Player : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
+        
     }
 
     public void TrishotActive()
@@ -163,8 +166,34 @@ public class Player : MonoBehaviour
 
     public void ShieldBoostActive()
     {
-        _shieldActive = true;
-        _shieldVisualizer.SetActive(true);
+        if (_shieldActive >= 3){
+            return;
+        } else {
+            _shieldActive += 1;
+        }
+        CheckShield();
+        //_shieldVisualizer.SetActive(true);
+    }
+
+    private void CheckShield(){
+        if (_shieldActive == 0){
+            _shieldVisualizer[0].SetActive(false);
+        }
+        if (_shieldActive == 1){
+            _shieldVisualizer[1].SetActive(false);
+            _shieldVisualizer[0].SetActive(true);
+        } else {
+            if (_shieldActive == 2){
+                _shieldVisualizer[0].SetActive(false);
+                _shieldVisualizer[2].SetActive(false);
+                _shieldVisualizer[1].SetActive(true);
+            } else {
+                if (_shieldActive == 3){
+                    _shieldVisualizer[1].SetActive(false);
+                    _shieldVisualizer[2].SetActive(true);
+                }
+            }
+        }
     }
 
     //method to add 10 to score
@@ -175,6 +204,4 @@ public class Player : MonoBehaviour
         _score += points;
         _uiManager.UpdateScore(_score);
     }
-
-
 }
