@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _lives = 3;
     private float _canFire = -1f;
+    private int _ammo = 15;
     private SpawnManager _spawnManager;
     [SerializeField]
     private bool _isTripleShotActive = false;
@@ -33,10 +34,13 @@ public class Player : MonoBehaviour
     [SerializeField]
     private AudioClip _laserClip;
     [SerializeField]
+    private AudioClip _laserFail;
+    [SerializeField]
     private AudioClip _explosionClip;
 
     [SerializeField]
     private bool _thrusters = false;
+
 
 //variable to store audio clip
 
@@ -74,17 +78,22 @@ public class Player : MonoBehaviour
 
     void Shoot()
     {
-        if (_isTripleShotActive == true)
-        {
-            _canFire = Time.time + _fireRate;
-            Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
-        } 
-        else if (_isTripleShotActive == false)
-        {
-            _canFire = Time.time + _fireRate;
-            Instantiate(_laserPrefab, new Vector3(transform.position.x, transform.position.y + 1.05f, 0), Quaternion.identity);
+        if (_ammo <= 0){
+            AudioSource.PlayClipAtPoint(_laserFail, transform.position);
+        } else if (_ammo > 0){
+            if (_isTripleShotActive == true)
+            {
+                _canFire = Time.time + _fireRate;
+                Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
+            } 
+            else if (_isTripleShotActive == false)
+            {
+                _canFire = Time.time + _fireRate;
+                Instantiate(_laserPrefab, new Vector3(transform.position.x, transform.position.y + 1.05f, 0), Quaternion.identity);
+            }
+            AudioSource.PlayClipAtPoint(_laserClip, transform.position);
         }
-        AudioSource.PlayClipAtPoint(_laserClip, transform.position);
+        _ammo--;    
         //play laser shot clip
     }
 

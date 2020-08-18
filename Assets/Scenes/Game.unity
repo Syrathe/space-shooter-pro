@@ -1579,6 +1579,7 @@ MonoBehaviour:
   _rightEngineDamage: {fileID: 1407441026}
   _leftEngineDamage: {fileID: 1131839194}
   _laserClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
+  _laserFail: {fileID: 8300000, guid: 5ac6242608b593342802f2c42954d298, type: 3}
   _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _thrusters: 0
 --- !u!212 &1523386738

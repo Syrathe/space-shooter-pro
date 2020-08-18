@@ -9,11 +9,11 @@ public class Enemy : MonoBehaviour
     private Player _player;
     [SerializeField]
     private GameObject _enemyLaser;
-    private float _canFire = -1f;
+    //private float _canFire = -1f;
     [SerializeField]
-    private float _fireRate = 0.15f;
+    //private float _fireRate = 0.15f;
     //handle to animator component
-    [SerializeField]
+    //[SerializeField]
     private Animator _anim;
 
     [SerializeField]

@@ -47,6 +47,7 @@
      <Compile Include="Assets\Scripts\Powerup.cs" />
      <Compile Include="Assets\Scripts\SpawnManager.cs" />
      <Compile Include="Assets\Scripts\UIManager.cs" />
+     <Compile Include="Assets\Zero Rare\Retro Sound Effects\Demo\Demo.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.4f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
