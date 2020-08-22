@@ -161,6 +161,11 @@ public class Player : MonoBehaviour
         _isTripleShotActive = false;
     }
 
+    public void AmmoReload(){
+        Debug.Log("Ammo reloading");
+        _ammo = 15;
+    }
+
     public void SpeedBoostActive()
     {
         _speed = 10f;

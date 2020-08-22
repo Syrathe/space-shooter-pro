@@ -13,30 +13,23 @@ public class Powerup : MonoBehaviour
     [SerializeField]
     private AudioClip _powerupClip;
 
-    void Update()
-    {
+    void Update(){
         CalculateMovement();
     }
 
-    void CalculateMovement()
-    {
+    void CalculateMovement(){
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
 
-        if (transform.position.y <= -6f)
-        {
+        if (transform.position.y <= -6f){
             Destroy(this.gameObject);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == ("Player"))
-        {
+    private void OnTriggerEnter2D(Collider2D other){
+        if (other.tag == ("Player")){
             Player player = other.transform.GetComponent<Player>();
-            if (player != null)
-            {
-                switch(this._powerupID)
-                {
+            if (player != null){
+                switch(this._powerupID){
                     
                     case 0:
                         player.TrishotActive();
@@ -50,6 +43,11 @@ public class Powerup : MonoBehaviour
                         break;
                     case 2:
                         player.ShieldBoostActive();
+                        AudioSource.PlayClipAtPoint(_powerupClip, transform.position);
+                        Destroy(this.gameObject);
+                        break;
+                    case 3:
+                        player.AmmoReload();
                         AudioSource.PlayClipAtPoint(_powerupClip, transform.position);
                         Destroy(this.gameObject);
                         break;
