@@ -130,21 +130,7 @@ public class Player : MonoBehaviour
         else
         {
             _lives--;
-            if (_lives == 2){
-                _rightEngineDamage.SetActive(true);
-            }
-            else
-            if (_lives == 1){
-                _leftEngineDamage.SetActive(true);
-            }
-            
-            _uiManager.UpdateLives(_lives);
-            if (_lives < 1)
-            {
-                _spawnManager.OnPlayerDeath();
-                AudioSource.PlayClipAtPoint(_explosionClip, transform.position);
-                Destroy(this.gameObject);
-            }
+            CheckDamage();
         }
         
     }
@@ -189,6 +175,14 @@ public class Player : MonoBehaviour
         //_shieldVisualizer.SetActive(true);
     }
 
+    public void Heal(){
+        if (_lives < 3){
+            _lives ++;
+            CheckDamage();
+        }
+        
+    }
+
     private void CheckShield(){
         if (_shieldActive == 0){
             _shieldVisualizer[0].SetActive(false);
@@ -207,6 +201,29 @@ public class Player : MonoBehaviour
                     _shieldVisualizer[2].SetActive(true);
                 }
             }
+        }
+    }
+
+    private void CheckDamage(){
+        if (_lives == 3){
+            _leftEngineDamage.SetActive(false);
+            _rightEngineDamage.SetActive(false);
+        } if (_lives == 2){
+            _leftEngineDamage.SetActive(true);
+            _rightEngineDamage.SetActive(false);
+        } else if (_lives == 1){
+            _rightEngineDamage.SetActive(true);
+            _leftEngineDamage.SetActive(true);
+        } else if (_lives == 0){
+            _leftEngineDamage.SetActive(false);
+            _rightEngineDamage.SetActive(false);
+        }
+
+        _uiManager.UpdateLives(_lives);
+        if (_lives < 1){
+            _spawnManager.OnPlayerDeath();
+            AudioSource.PlayClipAtPoint(_explosionClip, transform.position);
+            Destroy(this.gameObject);
         }
     }
 

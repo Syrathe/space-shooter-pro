@@ -51,6 +51,14 @@ public class Powerup : MonoBehaviour
                         AudioSource.PlayClipAtPoint(_powerupClip, transform.position);
                         Destroy(this.gameObject);
                         break;
+                    case 4:
+                        Debug.Log("Healing player");
+                        player.Heal();
+                        AudioSource.PlayClipAtPoint(_powerupClip, transform.position);
+                        Debug.Log("Will destroy powerup");
+                        Destroy(this.gameObject);
+                        Debug.Log("Powerup has been destroyed");
+                        break;
                 }
             }
         }
