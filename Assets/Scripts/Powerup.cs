@@ -52,12 +52,14 @@ public class Powerup : MonoBehaviour
                         Destroy(this.gameObject);
                         break;
                     case 4:
-                        Debug.Log("Healing player");
                         player.Heal();
                         AudioSource.PlayClipAtPoint(_powerupClip, transform.position);
-                        Debug.Log("Will destroy powerup");
                         Destroy(this.gameObject);
-                        Debug.Log("Powerup has been destroyed");
+                        break;
+                    case 5:
+                        player.Nuke();
+                        AudioSource.PlayClipAtPoint(_powerupClip, transform.position);
+                        Destroy(this.gameObject);
                         break;
                 }
             }

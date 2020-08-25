@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     private GameObject _laserPrefab;
     [SerializeField]
     private GameObject _tripleShotPrefab;
+
+    [SerializeField]
+    private GameObject _nukePrefab;
     [SerializeField]
     private float _fireRate = 0.15f;
     [SerializeField]
@@ -41,11 +44,12 @@ public class Player : MonoBehaviour
     [SerializeField]
     private bool _thrusters = false;
 
+    [SerializeField]
+    private bool _nuke = false;
 
 //variable to store audio clip
 
-    void Start()
-    {
+    void Start(){
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
@@ -60,8 +64,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Update()
-    {
+    void Update(){
         CalculateMovement();
 
         //upon hitting SPACE key, spawn game object
@@ -76,29 +79,34 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Shoot()
-    {
+    void Shoot(){
         if (_ammo <= 0){
             AudioSource.PlayClipAtPoint(_laserFail, transform.position);
         } else if (_ammo > 0){
-            if (_isTripleShotActive == true)
-            {
-                _canFire = Time.time + _fireRate;
-                Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
-            } 
-            else if (_isTripleShotActive == false)
-            {
-                _canFire = Time.time + _fireRate;
-                Instantiate(_laserPrefab, new Vector3(transform.position.x, transform.position.y + 1.05f, 0), Quaternion.identity);
+            if (_nuke == true){
+                Instantiate(_nukePrefab, new Vector3(transform.position.x - 0.83f, transform.position.y + 2.0f, 0), Quaternion.identity);
+            } else {
+                if (_isTripleShotActive == true)
+                {
+                    _canFire = Time.time + _fireRate;
+                    Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
+                } 
+                else if (_isTripleShotActive == false)
+                {
+                    _canFire = Time.time + _fireRate;
+                    Instantiate(_laserPrefab, new Vector3(transform.position.x, transform.position.y + 1.05f, 0), Quaternion.identity);
+                }
+                AudioSource.PlayClipAtPoint(_laserClip, transform.position);
             }
-            AudioSource.PlayClipAtPoint(_laserClip, transform.position);
+
+
+            
         }
         _ammo--;    
         //play laser shot clip
     }
 
-    void CalculateMovement()
-    {
+    void CalculateMovement(){
         //These will get input from default keys WASD/D-Pad
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -108,41 +116,32 @@ public class Player : MonoBehaviour
         //limit vertical movement by clamping.
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 0), 0);
         //Scroll back around from/to left/right
-        if (transform.position.x > 10)
-        {
+        if (transform.position.x > 10) {
             transform.position = new Vector3(-10, transform.position.y, 0);
-        }
-        else if (transform.position.x < -10)
-        {
+        } else if (transform.position.x < -10) {
             transform.position = new Vector3(10, transform.position.y, 0);
         }
     }
 
-    public void Damage ()
-    {
-        if (_shieldActive > 0)
-        {
+    public void Damage (){
+        if (_shieldActive > 0){
             //_shieldVisualizer.SetActive(false);
             _shieldActive -= 1;
             CheckShield();
             return;
-        }
-        else
-        {
+        } else {
             _lives--;
             CheckDamage();
         }
         
     }
 
-    public void TrishotActive()
-    {
+    public void TrishotActive(){
         _isTripleShotActive = true;
         StartCoroutine(TrishotOff());
     }
 
-    private IEnumerator TrishotOff()
-    {
+    private IEnumerator TrishotOff(){
         yield return new WaitForSeconds(5);
         _isTripleShotActive = false;
     }
@@ -152,20 +151,27 @@ public class Player : MonoBehaviour
         _ammo = 15;
     }
 
-    public void SpeedBoostActive()
-    {
+    public void SpeedBoostActive(){
         _speed = 10f;
         StartCoroutine(SpeedBoostOff());
     }
 
-    private IEnumerator SpeedBoostOff()
-    {
+    private IEnumerator SpeedBoostOff(){
         yield return new WaitForSeconds(5);
         _speed = 5f;
     }
 
-    public void ShieldBoostActive()
-    {
+    private IEnumerator NukeUp(){
+        _nuke = true;
+        yield return new WaitForSeconds(5);
+        _nuke = false;
+    }
+
+    public void Nuke(){
+        StartCoroutine("NukeUp");
+    }
+
+    public void ShieldBoostActive(){
         if (_shieldActive >= 3){
             return;
         } else {

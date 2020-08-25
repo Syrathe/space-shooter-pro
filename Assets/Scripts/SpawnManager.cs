@@ -47,7 +47,7 @@ public class SpawnManager : MonoBehaviour
         Debug.Log("Starting powerup coroutine");
         while (_stopSpawning == false)
         {
-            Instantiate(_powerups[Random.Range(0,5)], new Vector3(randomValX(), 9, 0), Quaternion.identity);
+            Instantiate(_powerups[Random.Range(0,11)], new Vector3(randomValX(), 9, 0), Quaternion.identity);
             Debug.Log("Power up yo ass!");
             yield return new WaitForSeconds(Random.Range(5, 11));
         }

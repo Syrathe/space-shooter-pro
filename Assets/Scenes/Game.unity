@@ -738,10 +738,16 @@ MonoBehaviour:
     type: 3}
   _powerups:
   - {fileID: 3804404809128911650, guid: 92040ea4aab4c3f4aae3119393b6b925, type: 3}
+  - {fileID: 3804404809128911650, guid: 92040ea4aab4c3f4aae3119393b6b925, type: 3}
+  - {fileID: 461290308182495414, guid: aebb8f6209a71ba41b5fbd16a0af9df6, type: 3}
   - {fileID: 461290308182495414, guid: aebb8f6209a71ba41b5fbd16a0af9df6, type: 3}
   - {fileID: 1232507148487713029, guid: 5dbd1076fa7ba424b82a0c258a79bdd3, type: 3}
+  - {fileID: 1232507148487713029, guid: 5dbd1076fa7ba424b82a0c258a79bdd3, type: 3}
+  - {fileID: 2983937288755983848, guid: 45266bc5cd8a4d3419dbc11929cc9c57, type: 3}
   - {fileID: 2983937288755983848, guid: 45266bc5cd8a4d3419dbc11929cc9c57, type: 3}
   - {fileID: 8008295462681058629, guid: 1c0bcb602d51d684e8fd5cd034f0aaf1, type: 3}
+  - {fileID: 8008295462681058629, guid: 1c0bcb602d51d684e8fd5cd034f0aaf1, type: 3}
+  - {fileID: 9155693371155260719, guid: 7529e80d5b31e424ca9e3e6b1221190b, type: 3}
   _enemyContainer: {fileID: 1980699181}
 --- !u!4 &723916986
 Transform:
@@ -1569,6 +1575,8 @@ MonoBehaviour:
     type: 3}
   _tripleShotPrefab: {fileID: 2486853237085528705, guid: 74c8222667c44854e8fde07f9459a59c,
     type: 3}
+  _nukePrefab: {fileID: 4222328289071069886, guid: 246c6e891a0e72d4193ac1860cc60a47,
+    type: 3}
   _fireRate: 0.15
   _lives: 3
   _isTripleShotActive: 0
@@ -1584,6 +1592,7 @@ MonoBehaviour:
   _laserFail: {fileID: 8300000, guid: 5ac6242608b593342802f2c42954d298, type: 3}
   _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _thrusters: 0
+  _nuke: 0
 --- !u!212 &1523386738
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1642,7 +1651,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1523386736}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.92, y: 0.28, z: 0}
+  m_LocalPosition: {x: 3.915, y: -2.09, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 2138432522}
