@@ -46,6 +46,8 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private bool _nuke = false;
+    public CameraShake cameraShake;
+
 
 //variable to store audio clip
 
@@ -131,11 +133,15 @@ public class Player : MonoBehaviour
             return;
         } else {
             _lives--;
+            Shake();
             CheckDamage();
         }
         
     }
 
+    private void Shake(){
+        StartCoroutine(cameraShake.Shake(.15f, .1f));
+    }
     public void TrishotActive(){
         _isTripleShotActive = true;
         StartCoroutine(TrishotOff());
@@ -232,9 +238,6 @@ public class Player : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
-    //method to add 10 to score
-    //communicate with UI
 
     public void AddScore(int points)
     {

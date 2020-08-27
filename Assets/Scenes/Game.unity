@@ -1161,6 +1161,8 @@ GameObject:
   - component: {fileID: 1283824921}
   - component: {fileID: 1283824920}
   - component: {fileID: 1283824923}
+  - component: {fileID: 1283824924}
+  - component: {fileID: 1283824925}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1293,6 +1295,30 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &1283824924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283824919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a889ab2fabb72443a682421c0795c56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1283824925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283824919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09cb0fb9c86322047a2d8ed85044b9b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1379809562
 GameObject:
   m_ObjectHideFlags: 0
@@ -1593,6 +1619,7 @@ MonoBehaviour:
   _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _thrusters: 0
   _nuke: 0
+  cameraShake: {fileID: 1283824925}
 --- !u!212 &1523386738
 SpriteRenderer:
   m_ObjectHideFlags: 0
