@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -42,28 +43,32 @@ public class Player : MonoBehaviour
     private AudioClip _explosionClip;
 
     [SerializeField]
-    private bool _thrusters = false;
-
-    [SerializeField]
     private bool _nuke = false;
     public CameraShake cameraShake;
+    public int _gas = 100;
+
+    public ThrustBar _thrustBar;
 
 
 //variable to store audio clip
 
     void Start(){
+        _thrustBar = GameObject.Find("Thrust_Bar").GetComponent<ThrustBar>();
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
-        if (_spawnManager == null)
-        {
+        if (_spawnManager == null){
             Debug.LogError("Spawn Manager is null");
         }
 
-        if (_uiManager == null)
-        {
+        if (_uiManager == null){
             Debug.LogError("UI Manager is null");
         }
+
+        if (_thrustBar == null){
+            Debug.LogError("Thrust Bar is empty");
+        }
+        StartCoroutine("GasRefill");
     }
 
     void Update(){
@@ -74,13 +79,33 @@ public class Player : MonoBehaviour
             Shoot();
         }
         if (Input.GetKeyDown(KeyCode.LeftShift)){
-            _speed += 3f;
+            StartCoroutine("Thrust");
         }
         if (Input.GetKeyUp(KeyCode.LeftShift)){
-            _speed -= 3f;
+            if ((_speed == 8) || (_speed == 13)){
+                _speed -= 3;
+            }
+            StopCoroutine("Thrust");
         }
     }
 
+    IEnumerator Thrust(){
+        if (_gas >= 3){
+            _speed += 3;
+            while (_gas >= 3){
+                _gas -= 3;
+                _thrustBar.SetThrustBar(_gas);
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+        if (_gas < 3){
+            if ((_speed == 8)||(_speed == 13)){
+                _speed -= 3;
+            }
+            yield break;
+        }
+
+    }
     void Shoot(){
         if (_ammo <= 0){
             AudioSource.PlayClipAtPoint(_laserFail, transform.position);
@@ -100,12 +125,8 @@ public class Player : MonoBehaviour
                 }
                 AudioSource.PlayClipAtPoint(_laserClip, transform.position);
             }
-
-
-            
         }
-        _ammo--;    
-        //play laser shot clip
+        _ammo--;   
     }
 
     void CalculateMovement(){
@@ -158,13 +179,13 @@ public class Player : MonoBehaviour
     }
 
     public void SpeedBoostActive(){
-        _speed = 10f;
+        _speed += 5f;
         StartCoroutine(SpeedBoostOff());
     }
 
     private IEnumerator SpeedBoostOff(){
         yield return new WaitForSeconds(5);
-        _speed = 5f;
+        _speed -= 5f;
     }
 
     private IEnumerator NukeUp(){
@@ -243,5 +264,15 @@ public class Player : MonoBehaviour
     {
         _score += points;
         _uiManager.UpdateScore(_score);
+    }
+
+    IEnumerator GasRefill(){
+        while (_gas <= 100){
+            if (_gas <= 97){
+                _gas += 2;
+                _thrustBar.SetThrustBar(_gas);
+            }
+            yield return new WaitForSeconds(1);
+        }
     }
 }
