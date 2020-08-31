@@ -24,9 +24,6 @@ public class SpawnManager : MonoBehaviour
     {
         
     }
-    //Spawn game obj every 5 secs
-    //create a coroutine of type IEnumerator -- Yield events
-    //while loop
 
     IEnumerator SpawnRoutine()
     {

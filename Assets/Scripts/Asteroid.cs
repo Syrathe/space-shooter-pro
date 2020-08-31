@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class Asteroid : MonoBehaviour
 {
@@ -8,13 +9,13 @@ public class Asteroid : MonoBehaviour
     private SpawnManager _spawnManager;
     [SerializeField]
     private AudioClip _explosionClip;
-    // Start is called before the first frame update
+    
     void Start()
     {
-        _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+        
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.Rotate(Vector3.forward * 20f * Time.deltaTime);
