@@ -48,6 +48,7 @@ public class SpawnManager : MonoBehaviour
                     break;
                 case 4:
                     GameObject newEnemyX = Instantiate(_enemyPrefab, new Vector3(randomValX(), 9, 0), Quaternion.Euler(0, 0, randomAngle()));
+                    
                     break;
             }
             
