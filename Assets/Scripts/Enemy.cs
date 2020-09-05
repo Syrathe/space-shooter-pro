@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour
     private IEnumerator EnemyShoot(){
         while (true){
             yield return new WaitForSeconds(Random.Range(3,8));
-            Instantiate(_enemyLaser, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
+            Instantiate(_enemyLaser, new Vector3(transform.position.x, transform.position.y, 0), this.transform.rotation);
         }
     }
     private void OnTriggerEnter2D(Collider2D other){
