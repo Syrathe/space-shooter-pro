@@ -112,21 +112,32 @@ public class Player : MonoBehaviour
         } else if (_ammo > 0){
             if (_nuke == true){
                 Instantiate(_nukePrefab, new Vector3(transform.position.x - 0.83f, transform.position.y + 2.0f, 0), Quaternion.identity);
+                if (_ammo > 0){
+                    _ammo--;
+                    _uiManager.UpdateAmmo(_ammo);
+                }
             } else {
                 if (_isTripleShotActive == true)
                 {
                     _canFire = Time.time + _fireRate;
                     Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
+                    if (_ammo > 0){
+                        _ammo--;
+                        _uiManager.UpdateAmmo(_ammo);
+                    }
                 } 
                 else if (_isTripleShotActive == false)
                 {
                     _canFire = Time.time + _fireRate;
                     Instantiate(_laserPrefab, new Vector3(transform.position.x, transform.position.y + 1.05f, 0), Quaternion.identity);
+                    if (_ammo > 0){
+                        _ammo--;
+                        _uiManager.UpdateAmmo(_ammo);
+                    }
                 }
                 AudioSource.PlayClipAtPoint(_laserClip, transform.position);
             }
         }
-        _ammo--;   
     }
 
     void CalculateMovement(){
@@ -176,6 +187,7 @@ public class Player : MonoBehaviour
     public void AmmoReload(){
         Debug.Log("Ammo reloading");
         _ammo = 15;
+        _uiManager.UpdateAmmo(_ammo);
     }
 
     public void SpeedBoostActive(){
