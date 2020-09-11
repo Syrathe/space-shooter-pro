@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
             StartCoroutine("Thrust");
         }
         if (Input.GetKeyUp(KeyCode.LeftShift)){
-            if ((_speed == 8) || (_speed == 13)){
+            if ((_speed == 8)||(_speed == 13)||(_speed == 7)){
                 _speed -= 3;
             }
             StopCoroutine("Thrust");
@@ -99,12 +99,11 @@ public class Player : MonoBehaviour
             }
         }
         if (_gas < 3){
-            if ((_speed == 8)||(_speed == 13)){
+            if ((_speed == 8)||(_speed == 13)||(_speed == 7)){
                 _speed -= 3;
             }
             yield break;
         }
-
     }
     void Shoot(){
         if (_ammo <= 0){
@@ -226,6 +225,16 @@ public class Player : MonoBehaviour
             CheckDamage();
         }
         
+    }
+
+    public void Slow(){
+        _speed -= 1f;
+        StartCoroutine(Slowgo());
+    }
+
+    IEnumerator Slowgo(){
+        yield return new WaitForSeconds(5);
+        _speed += 1f;
     }
 
     private void CheckShield(){

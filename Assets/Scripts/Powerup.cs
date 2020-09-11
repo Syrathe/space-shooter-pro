@@ -61,6 +61,11 @@ public class Powerup : MonoBehaviour
                         AudioSource.PlayClipAtPoint(_powerupClip, transform.position);
                         Destroy(this.gameObject);
                         break;
+                    case 6:
+                        player.Slow();
+                        AudioSource.PlayClipAtPoint(_powerupClip, transform.position);
+                        Destroy(this.gameObject);
+                        break;
                 }
             }
         }

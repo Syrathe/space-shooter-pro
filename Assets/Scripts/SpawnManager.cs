@@ -11,7 +11,8 @@ public class SpawnManager : MonoBehaviour
     private GameObject _enemyContainer;
 
     private bool _stopSpawning = false;
-
+    private int _enemyWaveCount = 0;
+    private int _waveCount = 0;
     private int x;
 
     // Start is called before the first frame update
@@ -35,18 +36,16 @@ public class SpawnManager : MonoBehaviour
         //infinite while loop
         //Instantiate enemy prefab
         //yield wait for 5 seconds
-        while (_stopSpawning == false)
-        {
+        while (_stopSpawning == false){
             x = randomX();
             switch(x){
                 case 0:
                 case 1:
                 case 2:
-                case 3:
                     GameObject newEnemy = Instantiate(_enemyPrefab, new Vector3(randomValX(), 9, 0), Quaternion.identity);
                     newEnemy.transform.parent = _enemyContainer.transform;
                     break;
-                case 4:
+                case 3:
                     GameObject newEnemyX = Instantiate(_enemyPrefab, new Vector3(randomValX(), 9, 0), Quaternion.Euler(0, 0, randomAngle()));
                     
                     break;
@@ -59,12 +58,10 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnPowerupRoutine()
-    {
+    IEnumerator SpawnPowerupRoutine(){
         Debug.Log("Starting powerup coroutine");
-        while (_stopSpawning == false)
-        {
-            Instantiate(_powerups[Random.Range(0,11)], new Vector3(randomValX(), 9, 0), Quaternion.identity);
+        while (_stopSpawning == false){
+            Instantiate(_powerups[Random.Range(0,12)], new Vector3(randomValX(), 9, 0), Quaternion.identity);
             Debug.Log("Power up yo ass!");
             yield return new WaitForSeconds(Random.Range(5, 11));
         }
@@ -73,8 +70,7 @@ public class SpawnManager : MonoBehaviour
 
 
     //return random x Value for respawning
-    int randomValX()
-    {
+    int randomValX(){
         return Random.Range(-9, 10);
     }
 
@@ -82,8 +78,7 @@ public class SpawnManager : MonoBehaviour
         return Random.Range(-45, 46);
     }
 
-    public void OnPlayerDeath()
-    {
+    public void OnPlayerDeath(){
         _stopSpawning = true;
     }
 
