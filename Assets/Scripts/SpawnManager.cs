@@ -47,10 +47,13 @@ public class SpawnManager : MonoBehaviour
                     break;
                 case 1:
                 case 2:
+                case 3:
+                case 4:
                     GameObject newEnemy = Instantiate(_enemyPrefab, new Vector3(randomValX(), 9, 0), Quaternion.identity);
                     newEnemy.transform.parent = _enemyContainer.transform;
                     break;
-                case 3:
+                case 5:
+                case 6:
                     GameObject newEnemyX = Instantiate(_enemyPrefab, new Vector3(randomValX(), 9, 0), Quaternion.Euler(0, 0, randomAngle()));
                     
                     break;
@@ -88,6 +91,6 @@ public class SpawnManager : MonoBehaviour
     }
 
     int randomX(){
-        return Random.Range(0,5);
+        return Random.Range(0,7);
     }
 }
