@@ -8,13 +8,13 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _zigzagEnemyPrefab;
     [SerializeField]
+    private GameObject _shieldedEnemyPrefab;
+    [SerializeField]
     private GameObject[] _powerups;
     [SerializeField]
     private GameObject _enemyContainer;
 
     private bool _stopSpawning = false;
-    private int _enemyWaveCount = 0;
-    private int _waveCount = 0;
     private int x;
 
     // Start is called before the first frame update
@@ -48,6 +48,9 @@ public class SpawnManager : MonoBehaviour
                 case 1:
                 case 2:
                 case 3:
+                    GameObject newShieldedEnemy = Instantiate(_shieldedEnemyPrefab, new Vector3(randomValX(), 9, 0), Quaternion.identity);
+                    newShieldedEnemy.transform.parent = _enemyContainer.transform;
+                    break;
                 case 4:
                     GameObject newEnemy = Instantiate(_enemyPrefab, new Vector3(randomValX(), 9, 0), Quaternion.identity);
                     newEnemy.transform.parent = _enemyContainer.transform;

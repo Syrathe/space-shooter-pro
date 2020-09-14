@@ -744,6 +744,8 @@ MonoBehaviour:
     type: 3}
   _zigzagEnemyPrefab: {fileID: 5226403753468701837, guid: f483f85735d9c2d4e903a2c2b204d7e6,
     type: 3}
+  _shieldedEnemyPrefab: {fileID: 7617573806912167179, guid: 5d84d6bf7490d7448a6a8f540ab7fda5,
+    type: 3}
   _powerups:
   - {fileID: 2983937288755983848, guid: 45266bc5cd8a4d3419dbc11929cc9c57, type: 3}
   - {fileID: 2983937288755983848, guid: 45266bc5cd8a4d3419dbc11929cc9c57, type: 3}

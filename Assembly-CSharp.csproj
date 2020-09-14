@@ -42,6 +42,7 @@
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\SpawnManager.cs" />
      <Compile Include="Assets\Scripts\EnemyLaser.cs" />
+     <Compile Include="Assets\Scripts\ZigzagLaser.cs" />
      <Compile Include="Assets\Scripts\CameraShake.cs" />
      <Compile Include="Assets\Scripts\EnemyZigzag.cs" />
      <Compile Include="Assets\Scripts\Main_Menu\MainMenu.cs" />
@@ -51,7 +52,7 @@
      <Compile Include="Assets\Scripts\Laser.cs" />
      <Compile Include="Assets\Scripts\UIManager.cs" />
      <Compile Include="Assets\Scripts\Zero Rare\Retro Sound Effects\Demo\Demo.cs" />
-     <Compile Include="Assets\Scripts\ZigzagLaser.cs" />
+     <Compile Include="Assets\Scripts\ShieldedEnemy.cs" />
     <Reference Include="UnityEngine">
         <HintPath>D:/Program Files/Unity Versions/2020.1.3f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
