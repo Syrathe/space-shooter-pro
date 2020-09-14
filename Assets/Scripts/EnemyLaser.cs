@@ -6,13 +6,7 @@ public class EnemyLaser : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 10f;
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
+    void Update(){
         CalculateMovement();
     }
 

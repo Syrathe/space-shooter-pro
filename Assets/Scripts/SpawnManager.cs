@@ -6,6 +6,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyPrefab;
     [SerializeField]
+    private GameObject _zigzagEnemyPrefab;
+    [SerializeField]
     private GameObject[] _powerups;
     [SerializeField]
     private GameObject _enemyContainer;
@@ -40,6 +42,9 @@ public class SpawnManager : MonoBehaviour
             x = randomX();
             switch(x){
                 case 0:
+                    GameObject newEnemyZigzag = Instantiate(_zigzagEnemyPrefab, new Vector3(randomValX(), 9, 0), Quaternion.identity);
+                    newEnemyZigzag.transform.parent = _enemyContainer.transform;
+                    break;
                 case 1:
                 case 2:
                     GameObject newEnemy = Instantiate(_enemyPrefab, new Vector3(randomValX(), 9, 0), Quaternion.identity);

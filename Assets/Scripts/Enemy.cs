@@ -5,7 +5,6 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 4f;
-
     private Player _player;
     [SerializeField]
     private GameObject _enemyLaser;
@@ -18,29 +17,27 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     private AudioClip _explosionClip;
-    void Start()
-    {
+    void Start(){
         _player = GameObject.Find("Player").GetComponent<Player>();
-        if (_player == null)
-        {
+        if (_player == null){
             Debug.Log("Player is NULL");
         }
         _anim = GetComponent<Animator>();
-        if (_anim == null)
-        {
+        if (_anim == null){
             Debug.Log("Animator is NULL");
         }
-        StartCoroutine("EnemyShoot");
+        StartCoroutine("EnemyShoot");   
     }
 
-    void Update()
-    {
+    void Update(){
         //respawns enemy on top when reaching bottom
         transform.Translate(Vector3.down* _speed * Time.deltaTime);
-        if (transform.position.y < -9)
-        {
+        if (transform.position.y < -9){
             transform.position = new Vector3(randomValX(), 9, 0);
         }
+        //if (enemy is zigzag){
+            //start moving 
+        //}
         
     }
 
@@ -56,6 +53,7 @@ public class Enemy : MonoBehaviour
             newLaser.transform.localPosition = new Vector3(0,-1,0);
         }
     }
+
     private void OnTriggerEnter2D(Collider2D other){
         //Enemy collides Player
         if (other.tag == "Player"){
@@ -89,8 +87,10 @@ public class Enemy : MonoBehaviour
     }
 
     //return random x Value for respawning
-    int randomValX()
-    {
+    int randomValX(){
         return Random.Range(-9, 10);
+    }
+    int randomZigZag(){
+        return Random.Range(0,2);
     }
 }

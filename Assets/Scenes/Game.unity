@@ -742,6 +742,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 5833703348631366053, guid: d34447cc252d05945a167036f01ba499,
     type: 3}
+  _zigzagEnemyPrefab: {fileID: 5226403753468701837, guid: f483f85735d9c2d4e903a2c2b204d7e6,
+    type: 3}
   _powerups:
   - {fileID: 3804404809128911650, guid: 92040ea4aab4c3f4aae3119393b6b925, type: 3}
   - {fileID: 3804404809128911650, guid: 92040ea4aab4c3f4aae3119393b6b925, type: 3}
@@ -1155,7 +1157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -100, y: -52.7}
+  m_AnchoredPosition: {x: -100, y: -52.69995}
   m_SizeDelta: {x: 127.59943, y: 22.060883}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1120036732
