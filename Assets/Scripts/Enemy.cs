@@ -6,19 +6,21 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float _speed = 4f;
     private Player _player;
+    private GameObject _myPlayer;
     [SerializeField]
     private GameObject _enemyLaser;
-    //private float _canFire = -1f;
     [SerializeField]
-    //private float _fireRate = 0.15f;
-    //handle to animator component
-    //[SerializeField]
     private Animator _anim;
 
     [SerializeField]
     private AudioClip _explosionClip;
+    private float _detectionRange = 2.5f;
+    private bool _closeEnough = false;
+    private Vector3 _ramTarget;
     void Start(){
-        _player = GameObject.Find("Player").GetComponent<Player>();
+        /*_player = GameObject.Find("Player").GetComponent<Player>();*/
+        _myPlayer = GameObject.Find("Player");
+        _player = _myPlayer.GetComponent<Player>();
         if (_player == null){
             Debug.Log("Player is NULL");
         }
@@ -26,19 +28,60 @@ public class Enemy : MonoBehaviour
         if (_anim == null){
             Debug.Log("Animator is NULL");
         }
+        
         StartCoroutine("EnemyShoot");   
     }
 
     void Update(){
-        //respawns enemy on top when reaching bottom
-        transform.Translate(Vector3.down* _speed * Time.deltaTime);
-        if (transform.position.y < -9){
-            transform.position = new Vector3(randomValX(), 9, 0);
+        /*if (_player != null){
+            if( Vector3.Distance(transform.position, _player.transform.position) <= _detectionRange ){
+                _closeEnough = true;
+                Debug.Log("It got close, will ram");
+                _ramTarget = _player.transform.position;
+                Debug.Log("Target is " + _ramTarget + ".");
+            } else {
+                _closeEnough = false;
+                Debug.Log("It got away.");
+            }
+        }*/
+        if (_player != null){
+            if( Vector3.Distance(transform.position, _myPlayer.transform.position) <= _detectionRange && transform.position.y > _myPlayer.transform.position.y){
+                Debug.Log("It got close, will ram");
+                Debug.Log("Target is " + _ramTarget + ".");
+                _closeEnough = true;
+                _speed = 5;
+            } else {
+                _closeEnough = false;
+                _speed = 4;
+                Debug.Log("It got away.");
+            }
         }
-        //if (enemy is zigzag){
-            //start moving 
-        //}
-        
+
+        if (_closeEnough == true){
+            //RamPlayer
+            if (_player != null){
+                transform.position = Vector3.MoveTowards(transform.position, _myPlayer.transform.position, 1 * _speed * Time.deltaTime);
+            }
+            
+            Debug.Log("Close enough is true now");
+        } else {
+
+                /*
+                MoveDir = Vector3.MoveTowards(transform.position, target.position, speed);
+                Debug.Log(MoveDir);
+                transform.Translate(MoveDir * Time.deltaTime);
+                */
+
+            //respawns enemy on top when reaching bottom
+            transform.Translate(Vector3.down* _speed * Time.deltaTime);
+            if (transform.position.y < -9){
+                transform.position = new Vector3(randomValX(), 9, 0);
+            }
+        }
+        if(this.transform.position == _ramTarget){
+            _closeEnough = false;
+            _speed = 4;
+        }
     }
 
     private IEnumerator EnemyShoot(){
