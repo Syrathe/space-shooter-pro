@@ -50,7 +50,8 @@ MonoBehaviour:
   _speed: 4
   _enemyLaser: {fileID: 5446994754826830386, guid: 5de6c16225613484a9773ba04acca2c9,
     type: 3}
-  _fireRate: 0.15
+  _enemyLaserRear: {fileID: 1019572272010921407, guid: 3bbf4c92cd03a5646bed6274415bc8de,
+    type: 3}
   _anim: {fileID: 0}
   _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
 --- !u!212 &4020875955825747595
@@ -68,6 +69,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

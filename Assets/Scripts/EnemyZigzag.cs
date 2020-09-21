@@ -46,6 +46,7 @@ public class EnemyZigzag : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(3,8));
             GameObject newLaser = Instantiate(_zigzagLaser,  new Vector3(transform.position.x, transform.position.y, 0), this.transform.rotation, this.transform) as GameObject;
             newLaser.transform.localPosition = new Vector3(0,-1,0);
+            newLaser.transform.parent = null;
             newLaser.GetComponent<ZigzagLaser>().x = x;
         }
     }
@@ -81,6 +82,7 @@ public class EnemyZigzag : MonoBehaviour
             Destroy(this.gameObject, 2.8f);
         }
     }
+    
     int randomValX(){
         return Random.Range(-9, 10);
     }

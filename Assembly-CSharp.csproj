@@ -36,6 +36,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\ShieldedEnemy.cs" />
      <Compile Include="Assets\Scripts\Powerup.cs" />
      <Compile Include="Assets\Scripts\Asteroid.cs" />
      <Compile Include="Assets\Scripts\Explosion.cs" />
@@ -52,7 +53,7 @@
      <Compile Include="Assets\Scripts\Laser.cs" />
      <Compile Include="Assets\Scripts\UIManager.cs" />
      <Compile Include="Assets\Scripts\Zero Rare\Retro Sound Effects\Demo\Demo.cs" />
-     <Compile Include="Assets\Scripts\ShieldedEnemy.cs" />
+     <Compile Include="Assets\Scripts\EnemyLaserRear.cs" />
     <Reference Include="UnityEngine">
         <HintPath>D:/Program Files/Unity Versions/2020.1.3f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

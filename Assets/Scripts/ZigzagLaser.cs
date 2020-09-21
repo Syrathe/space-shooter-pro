@@ -5,10 +5,9 @@ using UnityEngine;
 public class ZigzagLaser : MonoBehaviour
 {
     [SerializeField]
-    private float _speed = 1f;
+    private float _speed = 10f;
     public int x;
-    void Update()
-    {
+    void Update()    {
         CalculateMovement();
     }
 
@@ -23,12 +22,9 @@ public class ZigzagLaser : MonoBehaviour
         }
     }
     void CalculateMovement(){
-        transform.Translate(new Vector3(x,-1,0) * _speed * Time.deltaTime);
+        transform.Translate(new Vector3(8*x,-10,0) * _speed * Time.deltaTime);
 
         if (transform.position.y <= -8f){
-            /* if (transform.parent != null){
-                Destroy(transform.parent.gameObject);
-            } */
             Destroy(this.gameObject);
         }
     }

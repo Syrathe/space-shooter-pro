@@ -6,9 +6,13 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float _speed = 4f;
     private Player _player;
+    private float _fireRateRear = 1f;
+    private float _canFire = -1f;
     private GameObject _myPlayer;
     [SerializeField]
     private GameObject _enemyLaser;
+    [SerializeField]
+    private GameObject _enemyLaserRear;
     [SerializeField]
     private Animator _anim;
 
@@ -28,72 +32,39 @@ public class Enemy : MonoBehaviour
         if (_anim == null){
             Debug.Log("Animator is NULL");
         }
-        
+        StartCoroutine("Move");
         StartCoroutine("EnemyShoot");   
     }
 
-    void Update(){
-        /*if (_player != null){
-            if( Vector3.Distance(transform.position, _player.transform.position) <= _detectionRange ){
-                _closeEnough = true;
-                Debug.Log("It got close, will ram");
-                _ramTarget = _player.transform.position;
-                Debug.Log("Target is " + _ramTarget + ".");
-            } else {
-                _closeEnough = false;
-                Debug.Log("It got away.");
-            }
-        }*/
-        if (_player != null){
-            if( Vector3.Distance(transform.position, _myPlayer.transform.position) <= _detectionRange && transform.position.y > _myPlayer.transform.position.y){
-                Debug.Log("It got close, will ram");
-                Debug.Log("Target is " + _ramTarget + ".");
-                _closeEnough = true;
-                _speed = 5;
-            } else {
-                _closeEnough = false;
-                _speed = 4;
-                Debug.Log("It got away.");
-            }
-        }
-
-        if (_closeEnough == true){
-            //RamPlayer
-            if (_player != null){
-                transform.position = Vector3.MoveTowards(transform.position, _myPlayer.transform.position, 1 * _speed * Time.deltaTime);
-            }
-            
-            Debug.Log("Close enough is true now");
-        } else {
-
-                /*
-                MoveDir = Vector3.MoveTowards(transform.position, target.position, speed);
-                Debug.Log(MoveDir);
-                transform.Translate(MoveDir * Time.deltaTime);
-                */
-
-            //respawns enemy on top when reaching bottom
-            transform.Translate(Vector3.down* _speed * Time.deltaTime);
-            if (transform.position.y < -9){
-                transform.position = new Vector3(randomValX(), 9, 0);
-            }
-        }
-        if(this.transform.position == _ramTarget){
-            _closeEnough = false;
-            _speed = 4;
-        }
-    }
-
-    private IEnumerator EnemyShoot(){
+    IEnumerator EnemyShoot(){
         while (true){
             yield return new WaitForSeconds(Random.Range(3,8));
-            /*Instantiate(_enemyLaser, new Vector3(transform.position.x, transform.position.y, 0), this.transform.rotation);
-            _enemyLaser.transform.localPosition = new Vector3(0,2,0);*/
-
             //(Object original, Vector3 position, Quaternion rotation, Transform parent);
             GameObject newLaser = Instantiate(_enemyLaser,  new Vector3(transform.position.x, transform.position.y, 0), this.transform.rotation, this.transform) as GameObject;
             newLaser.transform.parent = transform;
             newLaser.transform.localPosition = new Vector3(0,-1,0);
+        }
+    }
+
+    IEnumerator Move(){
+        while (_player != null){
+            if( Vector3.Distance(transform.position, _myPlayer.transform.position) <= _detectionRange && transform.position.y > _myPlayer.transform.position.y){
+                transform.position = Vector3.MoveTowards(transform.position, _myPlayer.transform.position, 1 * _speed * Time.deltaTime);
+            } else {
+                transform.Translate(Vector3.down* _speed * Time.deltaTime);
+                if (transform.position.y < -9){
+                    transform.position = new Vector3(randomValX(), 9, 0);
+                }
+            }
+            if( Vector3.Distance(transform.position, _myPlayer.transform.position) <= _detectionRange && transform.position.y < _myPlayer.transform.position.y){
+                if (Time.time > _canFire){
+                    _canFire = Time.time + _fireRateRear;
+                    GameObject newLaser = Instantiate(_enemyLaserRear,  new Vector3(transform.position.x, transform.position.y, 0), this.transform.rotation, this.transform) as GameObject;
+                    newLaser.transform.parent = transform;
+                    newLaser.transform.localPosition = new Vector3(0,1,0);
+                }
+            }
+            yield return null;
         }
     }
 
@@ -109,6 +80,7 @@ public class Enemy : MonoBehaviour
                 _speed = 0;
                 AudioSource.PlayClipAtPoint(_explosionClip, transform.position);
                 Destroy(GetComponent<Collider2D>());
+                StopCoroutine("Move");
                 StopCoroutine("EnemyShoot");
                 Destroy(this.gameObject, 2.8f);
                 
@@ -124,12 +96,12 @@ public class Enemy : MonoBehaviour
             _speed = 0;
             AudioSource.PlayClipAtPoint(_explosionClip, transform.position);
             Destroy(GetComponent<Collider2D>());
+            StopCoroutine("Move");
             StopCoroutine("EnemyShoot");
             Destroy(this.gameObject, 2.8f);
         }
     }
 
-    //return random x Value for respawning
     int randomValX(){
         return Random.Range(-9, 10);
     }
