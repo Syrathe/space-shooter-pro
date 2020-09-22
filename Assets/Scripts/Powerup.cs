@@ -1,27 +1,55 @@
 ﻿using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;
 
 public class Powerup : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 3f;
-    //ID for Powerups
-    /*0 = trishot
-     * 1=speed
-     * 2=shield*/
     [SerializeField]
     private int _powerupID;
+    private Player _player;
+    private GameObject _myPlayer;
     [SerializeField]
     private AudioClip _powerupClip;
 
+    void Start(){
+        _myPlayer = GameObject.Find("Player");
+        _player = _myPlayer.GetComponent<Player>();
+        if (_player == null){
+            Debug.Log("Player is NULL");
+        }
+    }     
     void Update(){
-        CalculateMovement();
+
+        if (Input.GetKeyDown(KeyCode.C)){
+            Debug.Log("Will narrow in");
+            StartCoroutine("Move");
+        } else {
+            CalculateMovement();
+            Debug.Log("Moving as normal");
+        }
     }
 
     void CalculateMovement(){
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
-
         if (transform.position.y <= -6f){
             Destroy(this.gameObject);
+        }
+    }
+
+    IEnumerator Move(){
+        /* while(true){
+        Debug.Log("Coming closer");
+        } */
+        while(true){
+            if(_myPlayer != null){
+                transform.position = Vector3.MoveTowards(transform.position, _myPlayer.transform.position, 2 * _speed * Time.deltaTime);
+                if (Input.GetKeyUp(KeyCode.C)){
+                    StopCoroutine("Move");
+                }
+            }
+            yield return null;
         }
     }
 
