@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 411555250199612725}
   - component: {fileID: 2116155189666318997}
   - component: {fileID: 2347732269944310058}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shield_Powerup
-  m_TagString: Untagged
+  m_TagString: Powerup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,6 +49,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

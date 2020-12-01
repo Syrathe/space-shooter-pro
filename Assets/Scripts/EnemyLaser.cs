@@ -18,6 +18,13 @@ public class EnemyLaser : MonoBehaviour
             }
             player.Damage();
             Destroy(this.gameObject);
+        } /*Here start modifications*/else if (other.tag == "Powerup"){
+            Powerup powerup = other.transform.GetComponent<Powerup>();
+            if (powerup != null){
+                Debug.Log("Powerup is Null");
+            }
+            Destroy(other.gameObject);
+            Destroy(this.gameObject);
         }
     }
     void CalculateMovement(){

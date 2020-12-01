@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 382526336814858247}
   - component: {fileID: 6413885978486687159}
   - component: {fileID: 1136312022}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Speed_Powerup
-  m_TagString: Untagged
+  m_TagString: Powerup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,6 +50,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

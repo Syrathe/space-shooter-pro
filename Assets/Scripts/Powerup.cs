@@ -17,17 +17,14 @@ public class Powerup : MonoBehaviour
         _myPlayer = GameObject.Find("Player");
         _player = _myPlayer.GetComponent<Player>();
         if (_player == null){
-            Debug.Log("Player is NULL");
         }
     }     
     void Update(){
 
         if (Input.GetKeyDown(KeyCode.C)){
-            Debug.Log("Will narrow in");
             StartCoroutine("Move");
         } else {
             CalculateMovement();
-            Debug.Log("Moving as normal");
         }
     }
 
@@ -58,7 +55,6 @@ public class Powerup : MonoBehaviour
             Player player = other.transform.GetComponent<Player>();
             if (player != null){
                 switch(this._powerupID){
-                    
                     case 0:
                         player.TrishotActive();
                         AudioSource.PlayClipAtPoint(_powerupClip, transform.position);

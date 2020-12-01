@@ -1,27 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
-
-public class Enemy : MonoBehaviour
-{
-    [SerializeField]
-    private float _speed = 4f;
+using System.Collections.Generic;
+ 
+public class Enemy : MonoBehaviour{
+    
+    [SerializeField] private float _speed = 4f;
     private Player _player;
     private float _fireRateRear = 1f;
     private float _canFire = -1f;
+    private float _fireRatePowerup = 0f;
+    private float _canFirePowerup = -1f;
+    private bool _canfireBool = true;
     private GameObject _myPlayer;
-    [SerializeField]
-    private GameObject _enemyLaser;
-    [SerializeField]
-    private GameObject _enemyLaserRear;
-    [SerializeField]
-    private Animator _anim;
-
-    [SerializeField]
-    private AudioClip _explosionClip;
+    [SerializeField] private GameObject _enemyLaser;
+    [SerializeField] private GameObject _enemyLaserRear;
+    [SerializeField] private Animator _anim;
+    [SerializeField] private AudioClip _explosionClip;
     private float _detectionRange = 2.5f;
     private bool _closeEnough = false;
     private Vector3 _ramTarget;
+    private int layerMask = 1 << 8;
+    
     void Start(){
+
         /*_player = GameObject.Find("Player").GetComponent<Player>();*/
         _myPlayer = GameObject.Find("Player");
         _player = _myPlayer.GetComponent<Player>();
@@ -33,8 +34,44 @@ public class Enemy : MonoBehaviour
             Debug.Log("Animator is NULL");
         }
         StartCoroutine("Move");
-        StartCoroutine("EnemyShoot");   
+        StartCoroutine("EnemyShoot"); 
     }
+    
+    void Update(){
+        var hit = Physics2D.CircleCast(transform.position, 3f, -transform.forward, Mathf.Infinity);
+        if (hit != null)
+        {
+            Debug.Log($"Hit something... {hit.collider.name}");
+        }
+        /* RaycastHit hit;
+
+
+
+        Ray enemyRay = new Ray(transform.position, Vector3.down);
+        if (Physics.Raycast(enemyRay, out hit, 3f)){
+            Debug.Log("I hit something");
+            if(hit.collider.tag == "Powerup"){
+                Debug.Log("I hit a powerup, will shoot");
+                GameObject newLaser = Instantiate(_enemyLaser,  new Vector3(transform.position.x, transform.position.y, 0), this.transform.rotation, this.transform) as GameObject;
+                newLaser.transform.parent = transform;
+                newLaser.transform.localPosition = new Vector3(0,-1,0);
+            }
+        } */
+        /* var results = 0;
+        if (Physics2D.CircleCast(transform.position, 3f, -transform.up, layerMask, results, 5)){
+            Debug.Log("I hit something");
+            Debug.Log(results);
+        } */
+        /* if (Physics2D.CircleCast(transform.position, 3f, -transform.up, 0f, layerMask)){
+            Debug.Log("I hit something");
+        } */
+/* 
+        RaycastHit2D hit = new CircleCast(transform.position, 3f, -transform.up, 0f, layerMask, -Mathf.Infinity, Mathf.Infinity);
+        if (hit != null){
+            
+        } */
+    }
+
 
     IEnumerator EnemyShoot(){
         while (true){
@@ -46,6 +83,16 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    void ShootPowerup(){
+        if (_canfireBool == true){
+            GameObject newLaser = Instantiate(_enemyLaser,  new Vector3(transform.position.x, transform.position.y, 0), this.transform.rotation, this.transform) as GameObject;
+            newLaser.transform.parent = transform;
+            newLaser.transform.localPosition = new Vector3(0,-1,0);
+            _canfireBool = false;
+            StartCoroutine("FalseIt");
+        }
+    }
+ 
     IEnumerator Move(){
         while (_player != null){
             if( Vector3.Distance(transform.position, _myPlayer.transform.position) <= _detectionRange && transform.position.y > _myPlayer.transform.position.y){
@@ -67,7 +114,7 @@ public class Enemy : MonoBehaviour
             yield return null;
         }
     }
-
+ 
     private void OnTriggerEnter2D(Collider2D other){
         //Enemy collides Player
         if (other.tag == "Player"){
@@ -85,7 +132,7 @@ public class Enemy : MonoBehaviour
                 Destroy(this.gameObject, 2.8f);
                 
             }
-        } 
+        }
         //Enemy collides Laser
         else if (other.tag == "Laser"){
             Destroy(other.gameObject);
@@ -101,7 +148,7 @@ public class Enemy : MonoBehaviour
             Destroy(this.gameObject, 2.8f);
         }
     }
-
+ 
     int randomValX(){
         return Random.Range(-9, 10);
     }

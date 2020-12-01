@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 2319981684746286237}
   - component: {fileID: 5886894957828378009}
   - component: {fileID: 1602639502029136996}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Slow_Powerup
-  m_TagString: Untagged
+  m_TagString: Powerup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
