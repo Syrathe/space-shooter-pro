@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour{
     private Player _player;
     private float _fireRateRear = 1f;
     private float _canFire = -1f;
-    private float _fireRatePowerup = 0f;
+    private float _fireRatePowerup = 2f;
     private float _canFirePowerup = -1f;
     private bool _canfireBool = true;
     private GameObject _myPlayer;
@@ -22,8 +22,6 @@ public class Enemy : MonoBehaviour{
     private int layerMask = 1 << 8;
     
     void Start(){
-
-        /*_player = GameObject.Find("Player").GetComponent<Player>();*/
         _myPlayer = GameObject.Find("Player");
         _player = _myPlayer.GetComponent<Player>();
         if (_player == null){
@@ -38,38 +36,21 @@ public class Enemy : MonoBehaviour{
     }
     
     void Update(){
-        var hit = Physics2D.CircleCast(transform.position, 3f, -transform.forward, Mathf.Infinity);
-        if (hit != null)
+        Debug.DrawRay(transform.position, Vector3.down * 3f, Color.magenta);
+        var hit = Physics2D.CircleCast(transform.position, 2f, Vector3.down, 2f);
+        if (hit != null && hit.collider != null)
         {
             Debug.Log($"Hit something... {hit.collider.name}");
-        }
-        /* RaycastHit hit;
-
-
-
-        Ray enemyRay = new Ray(transform.position, Vector3.down);
-        if (Physics.Raycast(enemyRay, out hit, 3f)){
-            Debug.Log("I hit something");
-            if(hit.collider.tag == "Powerup"){
-                Debug.Log("I hit a powerup, will shoot");
-                GameObject newLaser = Instantiate(_enemyLaser,  new Vector3(transform.position.x, transform.position.y, 0), this.transform.rotation, this.transform) as GameObject;
-                newLaser.transform.parent = transform;
-                newLaser.transform.localPosition = new Vector3(0,-1,0);
+            if (hit.collider.tag == "Powerup"){
+                Debug.Log($"{hit.collider.tag}");
+                if(Time.time > _canFire){
+                    _canFire = Time.time + _fireRatePowerup;
+                    GameObject newLaser = Instantiate(_enemyLaser,  new Vector3(transform.position.x, transform.position.y, 0), this.transform.rotation, this.transform) as GameObject;
+                    newLaser.transform.parent = transform;
+                    newLaser.transform.localPosition = new Vector3(0,-1,0);
+                }
             }
-        } */
-        /* var results = 0;
-        if (Physics2D.CircleCast(transform.position, 3f, -transform.up, layerMask, results, 5)){
-            Debug.Log("I hit something");
-            Debug.Log(results);
-        } */
-        /* if (Physics2D.CircleCast(transform.position, 3f, -transform.up, 0f, layerMask)){
-            Debug.Log("I hit something");
-        } */
-/* 
-        RaycastHit2D hit = new CircleCast(transform.position, 3f, -transform.up, 0f, layerMask, -Mathf.Infinity, Mathf.Infinity);
-        if (hit != null){
-            
-        } */
+        }
     }
 
 
@@ -80,16 +61,6 @@ public class Enemy : MonoBehaviour{
             GameObject newLaser = Instantiate(_enemyLaser,  new Vector3(transform.position.x, transform.position.y, 0), this.transform.rotation, this.transform) as GameObject;
             newLaser.transform.parent = transform;
             newLaser.transform.localPosition = new Vector3(0,-1,0);
-        }
-    }
-
-    void ShootPowerup(){
-        if (_canfireBool == true){
-            GameObject newLaser = Instantiate(_enemyLaser,  new Vector3(transform.position.x, transform.position.y, 0), this.transform.rotation, this.transform) as GameObject;
-            newLaser.transform.parent = transform;
-            newLaser.transform.localPosition = new Vector3(0,-1,0);
-            _canfireBool = false;
-            StartCoroutine("FalseIt");
         }
     }
  
